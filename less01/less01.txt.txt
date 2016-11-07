@@ -1,0 +1,10 @@
+1) jar -cfve hello.jar com.Hello com/*.class
+
+$ jar -cfve hello.jar com.Hello com/*.class
+added manifest
+adding: com/Hello.class(in = 590) (out= 361)(deflated 38%)
+
+$ java -jar hello.jar Dima
+Hello Dima!
+
+2) jar -cfvm hello2.jar MANIFEST.MF com/*.class
