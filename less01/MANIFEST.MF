@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
 Created-By: 1.8.0_66 (Oracle Corporation)
-Main-Class: com.Hello
+Class-Pass: lib\commons-lang-2.5.jar
+Main-Class: com.Calculator
