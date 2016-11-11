@@ -16,14 +16,13 @@ public class ServerCustomSocket extends Thread {
 
     @Override
     public void run() {
-        try {
-            BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
 
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
+        System.out.println("Client@" + Thread.currentThread().getName() + " connect.");
+        String msgFromClient;
 
-            String msgFromClient;
-            System.out.println("Client@" + Thread.currentThread().getName() + " connect.");
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream())) {
+
             writer.println("Hello!");
             writer.flush();
 
@@ -36,10 +35,9 @@ public class ServerCustomSocket extends Thread {
 
             writer.println("stop");
             writer.flush();
-
             System.out.println("Client@" + Thread.currentThread().getName() + " disconnect.");
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

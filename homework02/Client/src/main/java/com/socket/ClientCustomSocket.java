@@ -9,25 +9,26 @@ import java.util.Scanner;
 
 public class ClientCustomSocket {
 
-    public static void main(String[] args) throws IOException {
-        Socket clientSocket = new Socket("localhost", 9999);
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(clientSocket.getInputStream()));
-
-        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-
         String msgFromServer;
 
-        while (!"stop".equals(msgFromServer = reader.readLine())) {
-            System.out.println("Server: " + msgFromServer);
-            String clientMsg = scanner.nextLine();
-            writer.println(clientMsg);
-            writer.flush();
-        }
-        System.out.println("Good buy!");
-    }
+        try (Socket clientSocket = new Socket("localhost", 9999);
+             BufferedReader reader = new BufferedReader(
+                     new InputStreamReader(clientSocket.getInputStream()));
+             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream())) {
 
+            while (!"stop".equals(msgFromServer = reader.readLine())) {
+                System.out.println("Server: " + msgFromServer);
+                String clientMsg = scanner.nextLine();
+                writer.println(clientMsg);
+                writer.flush();
+            }
+            System.out.println("Good buy!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
