@@ -1,13 +1,13 @@
 package com;
 
 public interface GetFileManagerMBean {
-    String getUrl();
+    String getInputURL();
 
-    void setUrl(String url);
+    void setInputURL(String inputURL);
 
-    String getOutputFile();
+    String getPath();
 
-    void setOutputFile(String outputFile);
+    void setPath(String path);
 
     void download();
 }

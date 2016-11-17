@@ -1,24 +1,46 @@
 package com;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
 
 public class GetFileManager implements GetFileManagerMBean {
     private String inputURL = "https://pbs.twimg.com/profile_images/426420605945004032/K85ZWV2F_400x400.png";
-    private String outputFile;
+    private String path;
 
     public GetFileManager() {
         try {
-
-            outputFile = loadProperties().getProperty("dir")
-                    + File.separator
-                    + loadProperties().getProperty("file");
-
+            path = loadProperties().getProperty("path");
         } catch (IOException e) {
+            path = "";
+            System.out.println("Error: " + e);
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getInputURL() {
+        return inputURL;
+    }
+
+    @Override
+    public void setInputURL(String inputURL) {
+        this.inputURL = inputURL;
+    }
+
+    @Override
+    public String getPath() {
+        return path;
+    }
+
+    @Override
+    public void setPath(String path) {
+        this.path = path;
     }
 
     private Properties loadProperties() throws IOException {
@@ -29,49 +51,25 @@ public class GetFileManager implements GetFileManagerMBean {
     }
 
     @Override
-    public String getUrl() {
-        return inputURL;
-    }
-
-    @Override
-    public void setUrl(String url) {
-        this.inputURL = url;
-    }
-
-    @Override
-    public String getOutputFile() {
-        return outputFile;
-    }
-
-    @Override
-    public void setOutputFile(String outputFile) {
-        this.outputFile = outputFile;
-    }
-
-    @Override
     public void download() {
 
-        URL url = null;
-        try {
-            url = new URL(inputURL);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        try  {
 
-        try (BufferedInputStream bufferedInputStream =
-                     new BufferedInputStream(url.openStream());
-             FileOutputStream fileOutputStream =
-                     new FileOutputStream(outputFile)) {
+            URL url = new URL(inputURL);
+            String[] str = url.getFile().split("/");
+            path += File.separator + str[str.length - 1];
 
-            byte[] buffer = new byte[1024];
-            int count=0;
-            while((count = bufferedInputStream.read(buffer,0,1024)) != -1)
-            {
-                fileOutputStream.write(buffer, 0, count);
-            }
+            ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
 
-         } catch (IOException e) {
-            e.printStackTrace();
+            fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
+
+            fileOutputStream.close();
+            readableByteChannel.close();
+
+        } catch (IOException e1) {
+            System.out.println("Error: " + e1);
+            e1.printStackTrace();
         }
 
     }
