@@ -8,15 +8,50 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ClientMSExecutor extends ThreadPoolExecutor {
 
     private Map<ClientRunnableEntry, Object> clientInProgressMap = new ConcurrentHashMap();
     private BlockingQueue<ClientRunnableEntry> waitClientQueue = new LinkedBlockingQueue();
+    private ReentrantLock lock = new ReentrantLock();
 
-    public ClientMSExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
-                            TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+
+    public ClientMSExecutor() {
         super(4, 4, 0, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+    }
+
+
+    @Override
+    protected void afterExecute(Runnable r, Throwable t) {
+
+        try {
+            lock.lock();
+            Object client = null;
+            ClientRunnableEntry clientInProgress = null;
+
+            for (ClientRunnableEntry clientRunnableEntry : clientInProgressMap.keySet()) {
+                if (r.equals(clientRunnableEntry.getRf())) {
+                    client = clientRunnableEntry.client;
+                    clientInProgress = clientRunnableEntry;
+                    clientInProgressMap.remove(clientInProgress);
+                    System.out.println("remove from main clientMap -> " + client);
+                    break;
+                }
+            }
+
+            for (ClientRunnableEntry clientInWait : waitClientQueue) {
+                if (clientInWait.equals(clientInProgress)) {
+                    waitClientQueue.remove(clientInWait);
+                    clientInProgressMap.put(clientInWait, client);
+                    System.out.println("remove from Queue -> " + client);
+                    execute(clientInWait.getRf());
+                }
+            }
+
+        } finally {
+            lock.unlock();
+        }
     }
 
     @Override
@@ -33,11 +68,6 @@ public class ClientMSExecutor extends ThreadPoolExecutor {
         }
 
         return ftask;
-    }
-
-    @Override
-    protected void afterExecute(Runnable r, Throwable t) {
-        super.afterExecute(r, t);
     }
 
     class ClientRunnableEntry<T> {
