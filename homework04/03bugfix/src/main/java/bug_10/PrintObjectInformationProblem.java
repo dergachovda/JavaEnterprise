@@ -12,7 +12,7 @@ public class PrintObjectInformationProblem {
 class User {
     private User manager;
 
-    private Company company;
+    private Company company = new Company();
 
     private String name;
     private String surName;
@@ -62,7 +62,7 @@ class User {
     public String toString() {
         return "User{" +
                 "manager=" + manager +
-                ", company=" + company.getAddress()+
+                ", company=" + company.getAddress() +
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
                 ", age=" + age +
