@@ -38,15 +38,12 @@ class Calculator {
 
     public int add(int... numbers) {
         int sum = 0;
-        try {
-            for (int n : numbers) {
-                sum += n;
-            }
 
-            return sum;
-        } finally {
-            return (int) (Math.random() * 10 + 1);
+        for (int n : numbers) {
+            sum += n;
         }
+
+        return sum;
 
     }
 

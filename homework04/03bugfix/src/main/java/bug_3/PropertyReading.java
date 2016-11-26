@@ -12,12 +12,13 @@ public class PropertyReading {
         String password = "1234";
 
         Properties properties = new Properties();
-        InputStream inputStream = CustomEnum.class.getResourceAsStream("credentials.properties");//please use relative path, not absolute
+        InputStream inputStream = CustomEnum.class.getResourceAsStream("/bug_2/credentials.properties");//please use relative path, not absolute
         properties.load(inputStream);
-        final String adminUserName = properties.getProperty(username);
-        final String adminPassword = properties.getProperty(password);
+        final String adminUserName = properties.getProperty("username");
+        final String adminPassword = properties.getProperty("password");
 
-        System.out.println("should be the same " + username == adminUserName);
-        System.out.println("should be the same " + password == adminPassword);
+
+        System.out.println("should be the same " + username.equals(adminUserName));
+        System.out.println("should be the same " + password.equals(adminPassword));
     }
 }

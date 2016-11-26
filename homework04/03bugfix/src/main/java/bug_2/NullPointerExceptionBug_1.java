@@ -4,7 +4,8 @@ public class NullPointerExceptionBug_1 {
     static String msg;
 
     public static void main(String[] args) {
-        Test.handle(new Formatter(), msg);
+        String out = Test.handle(new Formatter(), msg);
+        System.out.println(out);
     }
 }
 
@@ -16,7 +17,7 @@ class Formatter {
 
 class Test {
     public static String handle(Formatter f, String s) {
-        if (s.isEmpty()) {
+        if (s == null) {
             return "(none)";
         }
         return f.format(s.trim());

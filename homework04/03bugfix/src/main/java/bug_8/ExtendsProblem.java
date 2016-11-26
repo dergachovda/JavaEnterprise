@@ -24,7 +24,7 @@ class B extends A {
 
 class C extends B {
     public C() {
-        new D();
+        new B();
     }
 }
 

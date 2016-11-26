@@ -10,12 +10,12 @@ public class ArrayOutOfBoundExceptionTest {
     }
 
     public static void changeArray(int x[]) {
-        for (int count = 0; count <= x.length; count++) {
+        for (int count = 0; count < x.length; count++) {
             x[count] += 5;
         }
 
         for (int j : x) {
-            System.out.println(x[j]);
+            System.out.println(j);
         }
     }
 

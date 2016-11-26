@@ -3,7 +3,7 @@ package bug_9;
 
 //????????????)))
 public class CacheProblem {
-    String cache;
+    String cache; //= "cache"
 
     public static void main(String[] args) {
         final CacheProblem cacheProblem = new CacheProblem();
@@ -13,7 +13,8 @@ public class CacheProblem {
 
 
     public void fullCacheInformation(String cache) {
-        cache = "cacheInfo";
+//        cache = "cacheInfo";
+        this.cache = "cache";
     }
 
     public String getCache() {

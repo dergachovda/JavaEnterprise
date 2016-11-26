@@ -20,7 +20,6 @@ public class LostMessage {
         try {
             lm.f();
         } finally {
-            lm.dispose();
         }
     }
 
