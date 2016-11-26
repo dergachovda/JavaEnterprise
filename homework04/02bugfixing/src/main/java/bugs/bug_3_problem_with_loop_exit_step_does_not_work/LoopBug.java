@@ -17,7 +17,8 @@ public class LoopBug {
 
         while (input2 > 0) {
             System.out.println(total + "\nEnter another interger:  ");
-            total += entry.nextInt();
+            input2 = entry.nextInt();
+            total += input2;
         }
     }
 }

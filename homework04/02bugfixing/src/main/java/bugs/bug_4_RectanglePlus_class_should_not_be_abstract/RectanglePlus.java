@@ -1,6 +1,6 @@
 package bugs.bug_4_RectanglePlus_class_should_not_be_abstract;
 
-public abstract class RectanglePlus implements Relatable {
+public class RectanglePlus implements Relatable {
 
     public int width = 0;
     public int height = 0;
@@ -41,7 +41,7 @@ public abstract class RectanglePlus implements Relatable {
 
     // a method required to implement
     // the Relatable interface
-    public int isLargerThan(Relatable other) {
+    public int isLarger(Relatable other) {
         RectanglePlus otherRect
                 = (RectanglePlus) other;
         if (this.getArea() < otherRect.getArea())
@@ -52,8 +52,29 @@ public abstract class RectanglePlus implements Relatable {
             return 0;
     }
 
+    @Override
+    public String toString() {
+        return "RectanglePlus{" +
+                "width=" + width +
+                ", height=" + height +
+                '}';
+    }
+
     public static void main(String[] args) {
         // TODO code application logic here
+        Relatable relatable = new RectanglePlus(3,2);
+        Relatable relatable2 = new RectanglePlus(4,1);
+        switch (relatable.isLarger(relatable2)) {
+            case -1:
+                System.out.println(relatable2 + " - is larger");
+                break;
+            case 1:
+                System.out.println(relatable + " - is larger");
+                break;
+            case 0:
+                System.out.println("are equal");
+                break;
+        }
     }
 }
 

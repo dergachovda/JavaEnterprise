@@ -17,6 +17,7 @@ public class Printer {
 
     public static void main(String[] args) {
         Printer printer = new Printer();
+        printer.setName("Name");
         printer.print();
     }
 }

@@ -11,7 +11,7 @@ public class ClassCastExceptionBug {
     }
 }
 
-class A {
+class A extends B{
 
     int a = 10;
 
@@ -21,7 +21,7 @@ class A {
 
 }
 
-class B extends A {
+class B {
 
     int a = 20;
 
