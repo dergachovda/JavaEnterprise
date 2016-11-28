@@ -1,10 +1,16 @@
-package com;
+package com_test2.model;
 
-@UserRoleAnnotation(value = Role.ADMIN)
 public class User {
     private String name;
-    private String surName;
     private int age;
+
+    public User() {
+    }
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public String getName() {
         return name;
@@ -12,14 +18,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurName() {
-        return surName;
-    }
-
-    public void setSurName(String surName) {
-        this.surName = surName;
     }
 
     public int getAge() {
@@ -34,7 +32,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
                 ", age=" + age +
                 '}';
     }

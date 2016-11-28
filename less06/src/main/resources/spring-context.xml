@@ -3,11 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--<bean name="userService" class="com_test.service.UserServiceImpl">-->
-        <!--<property name="userRepo" ref="userRepo"/>-->
-    <!--</bean>-->
+    <bean name="userService" class="com_test.service.UserServiceImpl">
+        <constructor-arg index="0" ref="userRepo"/>
+        <!--<property name="userRepo" ref="userRepo"/>  //через сет метод-->
+    </bean>
 
     <bean name="userRepo" class="com_test.repo.UserRepoImpl"/>
-    <bean name="userService" autowire="byName" class="com_test.service.UserServiceImpl"/>
+    <!--<bean name="userService" autowire="byName" class="com_test.service.UserServiceImpl"/>-->
 
 </beans>
