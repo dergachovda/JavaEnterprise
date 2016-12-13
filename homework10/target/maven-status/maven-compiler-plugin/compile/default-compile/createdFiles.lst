@@ -1,0 +1,8 @@
+com/dao/UserDao.class
+com/dao/UserDaoImpl.class
+com/controller/UserController.class
+com/service/UserServiceImpl.class
+com/service/UserService.class
+com/filters/AuthFilters.class
+com/filters/ValidationFilter.class
+com/model/User.class
