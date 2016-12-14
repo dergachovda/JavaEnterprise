@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 @WebFilter(urlPatterns = "/users/*")
 public class ValidationFilter implements Filter {
-    public static final String EMAIL_PATTERN = "[a-zA-Z]{1}[a-zA-Z\\d\\u002E\\u005F]+@([a-zA-Z]+\\u002E){1,2}((net)|(com)|(org))";
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -28,52 +27,68 @@ public class ValidationFilter implements Filter {
         String email = req.getParameter("email");
         String address = req.getParameter("address");
 
+        boolean chek = true;
+
         if (StringUtils.isEmpty(name)) {
+            chek = false;
             errorMsg(resp, "Please, input your Name!");
         }
         if (StringUtils.isEmpty(surName)) {
+            chek = false;
             errorMsg(resp, "Please, input your Last Name!");
         }
         if (StringUtils.isEmpty(login)) {
+            chek = false;
             errorMsg(resp, "Please, input your Login!");
         }
         if (StringUtils.isEmpty(password)) {
+            chek = false;
             errorMsg(resp, "Please, input your Password!");
         }
-        if (StringUtils.isEmpty(age)) {
-            errorMsg(resp, "Please, input your Age!");
+        if (!validationAge(age)) {
+            chek = false;
+            errorMsg(resp, "Please, input correct Age!");
         }
+
         if (StringUtils.isEmpty(phone)) {
+            chek = false;
             errorMsg(resp, "Please, input your Phone!");
         }
 
-        if (validationEmail(resp, email)) {
-            filterChain.doFilter(req, resp);
+        if (!validationEmail(email)) {
+            chek = false;
+            errorMsg(resp, "Please, input correct Email!");
         }
 
         if (StringUtils.isEmpty(address)) {
+            chek = false;
             errorMsg(resp, "Please, input your Address!");
         }
 
+        if (chek) {
+            filterChain.doFilter(req, resp);
+        }
     }
 
 
-    private boolean validationEmail(ServletResponse resp, String email) throws IOException {
-
+    boolean validationEmail(String email) throws IOException {
         if (StringUtils.isEmpty(email)) {
-            errorMsg(resp, "Please, input your Email!");
             return false;
         }
-
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        String emailPattern = "[a-zA-Z]{1}[a-zA-Z\\d\\u002E\\u005F]+@([a-zA-Z]+\\u002E){1,2}((net)|(com)|(org))";
+        Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
-        if (!matcher.matches()) {
-            errorMsg(resp, "Validation for " + email + "not passed.");
+    boolean validationAge(String age) throws IOException {
+        if (StringUtils.isEmpty(age)) {
             return false;
         }
-
-        return true;
+        String agePattern = "^(0?[1-9]|[1-9][0-9])$";
+        Pattern pattern = Pattern.compile(agePattern);
+        Matcher matcher = pattern.matcher(age);
+        return matcher.matches();
     }
 
     private void errorMsg(ServletResponse resp, String msg) throws IOException {

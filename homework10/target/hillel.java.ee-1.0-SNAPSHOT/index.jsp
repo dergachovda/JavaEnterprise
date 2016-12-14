@@ -32,6 +32,6 @@ My first web page
     </c:forEach>
 
 </table>
-<a href="addUser.jsp">sdd new user</a>
+<a href="addUser.jsp">add new user</a>
 </body>
 </html>

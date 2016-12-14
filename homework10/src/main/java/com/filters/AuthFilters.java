@@ -22,7 +22,8 @@ public class AuthFilters implements Filter {
 //            InputStream resourceAsStream = AuthFilters.class.getClassLoader().
 //                    getResourceAsStream("admin.properties");
 
-            InputStream resourceAsStream = AuthFilters.class.getResourceAsStream("admin.properties");
+            InputStream resourceAsStream = AuthFilters.class.
+                    getResourceAsStream("admin.properties");
 
             Properties properties = new Properties();
             properties.load(resourceAsStream);
