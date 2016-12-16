@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,9 +20,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by BGClassTeacher on 28.11.2016.
- */
 //@RunWith(JUnit4.class)
 @RunWith(CustomRunner.class)
 public class CalculatorFunctionTest {
@@ -82,6 +78,5 @@ public class CalculatorFunctionTest {
         int sum = calculator.add(1, 4);
         Assert.assertEquals(sum, 5);
     }
-
 
 }

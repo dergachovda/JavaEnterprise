@@ -4,9 +4,6 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
-/**
- * Created by BGClassTeacher on 01.12.2016.
- */
 public class CustomRunner extends BlockJUnit4ClassRunner {
     /**
      * Creates a BlockJUnit4ClassRunner to run {@code klass}

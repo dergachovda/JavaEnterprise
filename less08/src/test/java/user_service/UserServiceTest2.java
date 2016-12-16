@@ -11,11 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 
-/**
- * Created by BGClassTeacher on 01.12.2016.
- */
-
-
 @RunWith(JUnit4.class)
 public class UserServiceTest2 {
     static UserService userService;

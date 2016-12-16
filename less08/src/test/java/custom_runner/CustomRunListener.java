@@ -5,9 +5,6 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
-/**
- * Created by BGClassTeacher on 01.12.2016.
- */
 public class CustomRunListener extends RunListener {
 
     @Override

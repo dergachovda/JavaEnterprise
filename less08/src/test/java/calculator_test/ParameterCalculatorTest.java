@@ -8,9 +8,6 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by BGClassTeacher on 01.12.2016.
- */
 @RunWith(Parameterized.class)
 public class ParameterCalculatorTest {
     private Calculator calculator = new Calculator();

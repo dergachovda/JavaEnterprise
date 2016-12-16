@@ -18,13 +18,13 @@ public class UserServiceTest {
     static UserService userService;
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
         userService = context.getBean("userService", UserService.class);
     }
 
     @Test
-    public void get_all_users_test(){
+    public void get_all_users_test() {
         List<User> allUsers = userService.getAllUsers();
         Assert.assertEquals(allUsers.size(), 4);
     }

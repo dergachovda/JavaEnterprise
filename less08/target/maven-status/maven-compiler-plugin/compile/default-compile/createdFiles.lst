@@ -1,0 +1,15 @@
+com_test/repo/UserRepo.class
+com_test/UserManager.class
+calculator_test/Calculator.class
+com_test_2/com_test/service/UserServiceImpl.class
+com_test/model/User.class
+com_test/repo/UserRepoImpl2.class
+com_test/service/UserServiceImpl.class
+com_test_2/com_test/repo/UserRepoImpl2.class
+com_test_2/com_test/model/User.class
+com_test/repo/UserRepoImpl.class
+com_test_2/com_test/service/UserService.class
+com_test_2/com_test/repo/UserRepoImpl.class
+com_test/service/UserService.class
+com_test_2/com_test/repo/UserRepo.class
+com_test_2/com_test/UserManager.class
