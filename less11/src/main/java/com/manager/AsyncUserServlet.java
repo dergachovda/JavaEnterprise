@@ -16,11 +16,11 @@ import java.util.concurrent.Executors;
 public class AsyncUserServlet extends HttpServlet {
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AsyncContext asyncContext = req.startAsync(req, resp);
         asyncContext.setTimeout(Integer.MAX_VALUE);
+        asyncContext.addListener(new UserListener());
         executorService.submit(new UserTask(asyncContext));
     }
 }
