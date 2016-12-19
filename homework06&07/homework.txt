@@ -1,0 +1,8 @@
+для начала попробуйте придумать свою модель "плотно-связанного" кода
+
+это может быть
+1) автомобильная тема -> interface Auto; implementation -> LORRY, BUS ETC
+2) jdbc providers -> модель доступа к бд -> interface ConnectManager; implements -> MySQLConnectorManager, OracleSQLConnectorManager
+3) TransactionManager -> система фиксирования изменений в базе -> interface TxManage; implements -> SpringCustomTxManager, HibernateTxManager, SessionFactoryTxManagerи тд
+
+после попробуйте исправить ситуацию к лучшему -> сделайте экслюд жесткой зависимости посредством DI + IOC

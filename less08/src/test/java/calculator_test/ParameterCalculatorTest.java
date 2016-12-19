@@ -33,7 +33,7 @@ public class ParameterCalculatorTest {
 
     @Test
     public void test_sum_calc() {
-        Calculator calculator = new Calculator();
+//        Calculator calculator = new Calculator();
         int sum = calculator.add(fNumber, sNumber);
         Assert.assertEquals(sum, fNumber + sNumber);
     }
