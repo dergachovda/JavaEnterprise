@@ -64,7 +64,7 @@ public class JdbcTest {
 
         System.out.println("---> connection.rollback(savepoint);");
         selectFromTable(selectSQL, statement);
-        
+
         connection.setAutoCommit(true);
     }
 
