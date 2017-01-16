@@ -24,21 +24,51 @@
 
 <script>
     var User = Backbone.Model.extend({
+        urlRoot: "/web/users",
         defaults: {
+            id: 1,
             name: "test_name",
             age: 12
         },
         initialize: function () {
             console.log("user model was created");
+            this.on("change:name", function (model) {
+                console.log("model->" + model.get("name"));
+            })
         }
-    })
-    ;
+    });
 
-    var user1 = new User({age: 1});
-    var user2 = new User({name: "test2", age: 12});
+    var user1 = new User();
+    var user2 = new User({id:2, name: "JS_User", age: 12});
 
-    console.log(JSON.stringify(user1));
-    console.log(JSON.stringify(user2));
+//    user1.fetch({
+//        success: function (model) {
+//            console.log(JSON.stringify(model))
+//        },
+//        error: function (model) {
+//            console.log("error");
+//        }
+//    });
+
+    user2.save({
+        success: function (model) {
+            console.log(JSON.stringify(model))
+        },
+        error: function (model) {
+            console.log("error");
+        }
+    });
+
+    //    console.log(JSON.stringify(user));
+    //    console.log(JSON.stringify(user2));
+
+    var UserCollection = Backbone.Collection.extend({
+        model : User
+    });
+
+    var usersCollection = new UserCollection([user1, user2, new User({name:"Ivan", age:12})]);
+    console.log(JSON.stringify(usersCollection));
+
 </script>
 
 </body>
