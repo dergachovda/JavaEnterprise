@@ -23,7 +23,8 @@ public class UserController {
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public String getFirstPage() {
-        return "user_page";
+        throw new NullPointerException();
+//        return "user_page";
     }
 
     @RequestMapping(method = RequestMethod.GET)

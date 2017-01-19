@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,8 @@
 </head>
 <body>
 
-<div id="container">
-</div>
+<div id="container"></div>
+<div id="user_container"></div>
 
 
 <!-- ========= -->
@@ -26,7 +27,7 @@
     var User = Backbone.Model.extend({
         urlRoot: "/web/users",
         defaults: {
-            id: 1,
+//            id: 1,
             name: "test_name",
             age: 12
         },
@@ -39,16 +40,16 @@
     });
 
     var user1 = new User();
-    var user2 = new User({id:2, name: "JS_User", age: 12});
+    var user2 = new User({id: 2, name: "JS_User", age: 12});
 
-//    user1.fetch({
-//        success: function (model) {
-//            console.log(JSON.stringify(model))
-//        },
-//        error: function (model) {
-//            console.log("error");
-//        }
-//    });
+    //    user1.fetch({
+    //        success: function (model) {
+    //            console.log(JSON.stringify(model))
+    //        },
+    //        error: function (model) {
+    //            console.log("error");
+    //        }
+    //    });
 
     user2.save({
         success: function (model) {
@@ -63,11 +64,51 @@
     //    console.log(JSON.stringify(user2));
 
     var UserCollection = Backbone.Collection.extend({
-        model : User
+        model: User
     });
 
-    var usersCollection = new UserCollection([user1, user2, new User({name:"Ivan", age:12})]);
+    var usersCollection = new UserCollection([user1, user2, new User({id: 3, name: "Ivan", age: 12})]);
     console.log(JSON.stringify(usersCollection));
+
+</script>
+
+<script type="text/template" id="templateId">
+    <input type="text" value="" id="ageId"/>
+    <input type="text" value="" id="nameId"/>
+    <input type="button" value="Save user" id="saveBtnId"/>
+</script>
+
+<script type="text/javascript">
+    var UserView = Backbone.View.extend({
+        events: {"click #saveBtnId": "saveUser"},
+        saveUser: function (event) {
+            var userDetails = {
+                age: $("#ageId").val(),
+                name: $("#nameId").val()
+            };
+
+            new User().save(userDetails, {
+                success: function (model) {
+                    console.log(JSON.stringify(model))
+                },
+                error: function (model, ex) {
+                    console.log("error");
+                }
+            })
+        },
+        initialize: function () {
+            console.log("constructor for view");
+            this.render();
+        },
+        render: function () {
+            var temp = _.template($("#templateId").html(), {});
+            this.$el.html(temp);
+        }
+    });
+
+    var userView = new UserView({el: $("#user_container")}); // jQuery
+    //    var userView = new UserView({el: document.getElementById("user_container")});
+    //    var userView = new UserView({el: jQuery("#user_container")});
 
 </script>
 

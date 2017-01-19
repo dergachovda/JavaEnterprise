@@ -1,9 +1,10 @@
 package com;
 
 public class User {
-
+//    @JsonIgnore
     private int id;
     private String name;
+//    @JsonProperty(value = "age_test")
     private int age;
 
     public User() {
